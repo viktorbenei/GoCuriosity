@@ -12,11 +12,12 @@ type TestSubSerModel struct {
 }
 
 type TestSerModel struct {
-	TestString string            `json:"test_string,omitempty" yaml:"test_string,omitempty"`
-	TestBool   bool              `json:"test_bool,omitempty" yaml:"test_bool,omitempty"`
-	SubMod     TestSubSerModel   `json:"sub_mod,omitempty" yaml:"sub_mod,omitempty"`
-	TestMap    map[string]string `json:"test_map,omitempty" yaml:"test_map,omitempty"`
-	TestSlice  []string          `json:"test_slice,omitempty" yaml:"test_slice,omitempty"`
+	TestString    string            `json:"test_string,omitempty" yaml:"test_string,omitempty"`
+	TestBool      bool              `json:"test_bool,omitempty" yaml:"test_bool,omitempty"`
+	SubMod        TestSubSerModel   `json:"sub_mod,omitempty" yaml:"sub_mod,omitempty"`
+	PointerSubMod *TestSubSerModel  `json:"pointer_sub_mod,omitempty" yaml:"pointer_sub_mod,omitempty"`
+	TestMap       map[string]string `json:"test_map,omitempty" yaml:"test_map,omitempty"`
+	TestSlice     []string          `json:"test_slice,omitempty" yaml:"test_slice,omitempty"`
 }
 
 func Test_serialize(t *testing.T) {
@@ -38,6 +39,8 @@ func Test_serialize(t *testing.T) {
 		require.Equal(t, false, testObj.TestBool)
 		// a sub struct is not nil
 		require.Equal(t, TestSubSerModel{}, testObj.SubMod)
+		// unless you use a pointer (*)
+		require.Equal(t, (*TestSubSerModel)(nil), testObj.PointerSubMod)
 		// but maps and slices are!
 		require.Equal(t, map[string]string(nil), testObj.TestMap)
 		require.Equal(t, []string(nil), testObj.TestSlice)
