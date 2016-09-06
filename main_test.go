@@ -20,7 +20,7 @@ type TestSerModel struct {
 }
 
 func Test_serialize(t *testing.T) {
-	// JSON - serialize
+	t.Log("JSON - serialize - empty struct")
 	{
 		testObj := TestSerModel{}
 		bytes, err := json.Marshal(testObj)
@@ -29,7 +29,7 @@ func Test_serialize(t *testing.T) {
 		require.Equal(t, `{"sub_mod":{}}`, string(bytes))
 	}
 
-	// JSON - deserialize
+	t.Log("JSON - deserialize - empty json to struct")
 	{
 		var testObj TestSerModel
 		err := json.Unmarshal([]byte(`{}`), &testObj)
