@@ -41,6 +41,9 @@ func Test_serialize(t *testing.T) {
 		require.Equal(t, TestSubSerModel{}, testObj.SubMod)
 		// unless you use a pointer (*)
 		require.Equal(t, (*TestSubSerModel)(nil), testObj.PointerSubMod)
+		require.NotEqual(t, nil, testObj.PointerSubMod)
+		// but can be compared to a `nil` with `==`
+		require.Equal(t, true, testObj.PointerSubMod == nil)
 		// but maps and slices are!
 		require.Equal(t, map[string]string(nil), testObj.TestMap)
 		require.Equal(t, []string(nil), testObj.TestSlice)
